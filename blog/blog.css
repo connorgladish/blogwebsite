@@ -1,0 +1,77 @@
+/* Normalize and basic resets */
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    font: 1.15em "Overpass Mono", monospace;
+    background-color: #222;
+    color: #fff;
+  }
+  h1, h2, h3, h4, h5 {
+    color: #fff;
+  }
+  a {
+    color: #7b68ee;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #fff;
+  }
+  h1 {
+    font-size: 250%;
+    margin: .5em 0;
+  }
+  p {
+    line-height: 1.6;
+    margin: 1.3em 0;
+  }
+  
+  /* Layout */
+  .site-wrapper {
+    padding: 2em;
+  }
+  .header {
+    background-color: #222;
+  }
+  .h-wrap h1.title {
+    display: inline-block;
+    margin: 0;
+    font-weight: normal;
+  }
+  .title-normal {
+    display: inline;
+  }
+  .menu-icon .back {
+    text-align: center;
+    border: 2px solid #fff;
+    padding: 10px;
+    border-radius: 6px;
+  }
+  .menu-icon .back:hover {
+    border-color: #7b68ee;
+  }
+  
+  /* Main content */
+  .single-wrap {
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0 2em;
+  }
+  .single-content {
+    padding: 0 2em;
+  }
+  .single-wrap .page-title {
+    text-align: center;
+    font-size: 180%;
+    margin: 0 0 2em;
+  }
+  .single-wrap .page-date {
+    text-align: center;
+    font-size: 85%;
+    font-style: italic;
+  }
+  

